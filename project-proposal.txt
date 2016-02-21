@@ -1,0 +1,41 @@
+Group 7 – Project Proposal
+Members: 
+-	Duy Vu
+-	Nam Nhat Luu
+-	Jaejin Lee
+
+Description:
+-	The project aims to create a music database service that similar to IMDB. 
+-	The database will have a library of songs’ info such as:  song’s name, artist, album… 
+-	The service will allow users to create an account, login and add the songs to their personal account. The user can also comment, like, rate the song.
+-	The project will have a web GUI interface which allow user’s interactions.
+
+
+Technical Aspects:
+-	We will be using MySQL to build a relational database.
+-	The project consists of a web front-end, a server back-end and a database
+-	Front end will be developed using AngularJS, HTML, CSS, Jquery
+-	Back end will be developed using NodeJS
+-	The database will be MySQL with the use of nodejs-mysql module to connect it with the server
+-	We will be using Spotify API for the music the catalog. When a user decide to add the song to their library, or comment on it … we will then save that info in our database. 
+-	There should be no machine restriction on the project.
+
+The Proposal: 
+-	We Group 7 love music.
+-	We listen to online music from sources such as: Spotify, Pandora …
+-	We each have a music library/ database that we manage on local drive
+-	The problem arise when we need to find a particular song if we already have (own) it,  
+o	In order to find that one song, we would need to search on each online services, then if it isn’t there, we need to find on the local drive.
+o	Similar scenario when we need to share a song. We either give them the name of the song as text or trying to find the song online and send the song’s link to the friend.
+o	The whole process is very inconvenient
+-	Therefore, we propose a musicDB, which act as a global music info catalog.
+o	A user of the service will have a library which is a subset of the global music info catalog
+o	The users manage their library by adding songs from the global catalog to their library, remove songs from their library, creating playlists…
+o	The user can comment, rate the song
+
+
+Benefits: 
+?	When user add a song to their library, they know that they have listen/own/have access to that song.
+?	Whenever they heard a song, they can look up in the service to know if they already have that song or not.
+?	They can see the comments on the song to know if they should purchase that song. 
+?	With enough data collected, will probably have one of the most varied library of international music
