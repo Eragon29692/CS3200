@@ -1,0 +1,12 @@
+<ul ng-controller="SidebarController" class="nav nav-sidebar">
+    <!--<span class="sr-only">(current)</span> Adding this-->
+    <li ng-class="{'active' : $location.url().indexOf('home') != -1}"><a href="#/home">Home</a></li>
+    <li ng-class="{'active' : $location.url().indexOf('register') != -1, 'hidden' : !(currentUser === undefined)}"><a
+            href="#/register">Register</a></li>
+    <li ng-class="{'active' : $location.url().indexOf('login') != -1, 'hidden' : !(currentUser === undefined)}"><a href="#/login">Login</a></li>
+    <li ng-class="{'active' : $location.url().indexOf('form') != -1, 'hidden' : currentUser === undefined}"><a href="#/forms">Form</a></li>
+    <li ng-class="{'active' : $location.url().indexOf('username') != -1, 'hidden' : currentUser === undefined}"><a
+            href="#/profile">Profile</a></li>
+    <li ng-class="{'active' : $location.url().indexOf('admin') != -1, 'hidden' : currentUser === undefined || currentUser.roles.indexOf('admin') < 0}"><a href="#/admin">Admin</a>
+    </li>
+</ul>

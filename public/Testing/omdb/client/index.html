@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="OmdbApp">
+<head>
+    <link href="css/bootstrap.css" rel="stylesheet"/>
+    <link href="css/jga.css" rel="stylesheet"/>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script src="app.js"></script>
+    <script src="config.js"></script>
+    <script src="views/header/navigation.controller.js"></script>
+    <script src="views/login/login.controller.js"></script>
+    <script src="services/user.service.client.js"></script>
+    <script src="views/profile/profile.controller.js"></script>
+    <script src="views/register/register.controller.js"></script>
+    <script src="views/search/search.controller.js"></script>
+    <script src="services/omdb.service.client.js"></script>
+    <script src="views/details/details.controller.js"></script>
+    <script src="services/movie.service.client.js"></script>
+    <meta charset="UTF-8">
+    <title>OMDB Project</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Omdb Application</h1>
+        <div ng-include="'views/header/header.view.html'"></div>
+        <div ng-view></div>
+    </div>
+</body>
+</html>

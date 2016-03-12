@@ -1,0 +1,22 @@
+[
+  {
+    "_id": 123, "firstName": "Alice", "lastName": "Wonderland",
+    "username": "alice", "password": "alice", "roles": ["student"], "songs": ["000", "010"]
+  },
+  {
+    "_id": 234, "firstName": "Bob", "lastName": "Hope",
+    "username": "bob", "password": "bob", "roles": ["admin"], "songs": ["020"]
+  },
+  {
+    "_id": 345, "firstName": "Charlie", "lastName": "Brown",
+    "username": "charlie", "password": "charlie", "roles": ["faculty"], "songs": []
+  },
+  {
+    "_id": 456, "firstName": "Dan", "lastName": "Craig",
+    "username": "dan", "password": "dan", "roles": ["faculty", "admin"], "songs": []
+  },
+  {
+    "_id": 567, "firstName": "Edward", "lastName": "Norton",
+    "username": "ed", "password": "ed", "roles": ["student"], "songs": []
+  }
+]

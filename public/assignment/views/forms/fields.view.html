@@ -1,0 +1,110 @@
+<h1 class="page-header">Forms: Registration Form</h1>
+<ul class="nav nav-tabs">
+    <li role="presentation" class="inactive"><a href="forms.html">Forms</a></li>
+    <li role="presentation" class="active"><a href="form-fields.html">Fields</a></li>
+</ul>
+<form class="form-horizontal formBorder">
+    <div class="form-group">
+        <label for="inputFirstName" class="col-xs-12 control-label">First Name:</label>
+        <div class="col-xs-6">
+            <input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
+        </div>
+        <div class="col-xs-5 col-xs-offset-1">
+            <span class="glyphicon glyphicon-pencil" aria-label="OK"></span>
+            <span class="glyphicon glyphicon-plus" aria-label="Add"></span>
+            <span class="glyphicon glyphicon-remove" aria-label="Remove"></span>
+            <span class="glyphicon glyphicon-align-justify" aria-label="Move"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputLastName" class="col-xs-12 control-label">Last Name:</label>
+        <div class="col-xs-6">
+            <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
+        </div>
+        <div class="col-xs-5 col-xs-offset-1">
+            <span class="glyphicon glyphicon-pencil" aria-label="OK"></span>
+            <span class="glyphicon glyphicon-plus" aria-label="Add"></span>
+            <span class="glyphicon glyphicon-remove" aria-label="Remove"></span>
+            <span class="glyphicon glyphicon-align-justify" aria-label="Move"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputDoB" class="col-xs-12 control-label">Date of Birth:</label>
+        <div class="col-xs-6">
+            <input type="date" class="form-control" id="inputDoB" placeholder="Select Date">
+        </div>
+        <div class="col-xs-5 col-xs-offset-1">
+            <span class="glyphicon glyphicon-pencil" aria-label="OK"></span>
+            <span class="glyphicon glyphicon-plus" aria-label="Add"></span>
+            <span class="glyphicon glyphicon-remove" aria-label="Remove"></span>
+            <span class="glyphicon glyphicon-align-justify" aria-label="Move"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputGender" class="col-xs-12 control-label">Gender:</label>
+        <div class="col-xs-6">
+            <select id="inputGender" class="form-control">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+        <div class="col-xs-5 col-xs-offset-1">
+            <span class="glyphicon glyphicon-pencil" aria-label="OK"></span>
+            <span class="glyphicon glyphicon-plus" aria-label="Add"></span>
+            <span class="glyphicon glyphicon-remove" aria-label="Remove"></span>
+            <span class="glyphicon glyphicon-align-justify" aria-label="Move"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-xs-12 control-label">Roles:</label>
+        <div class="col-xs-6">
+            <div><label><input type="checkbox" id="roleAdmin" checked> Amin </label></div>
+            <div><label><input type="checkbox" id="roleStudent"> Student</label></div>
+            <div><label><input type="checkbox" id="roleUser" checked> User</label></div>
+        </div>
+        <div class="col-xs-5 col-xs-offset-1">
+            <span class="glyphicon glyphicon-pencil" aria-label="OK"></span>
+            <span class="glyphicon glyphicon-plus" aria-label="Add"></span>
+            <span class="glyphicon glyphicon-remove" aria-label="Remove"></span>
+            <span class="glyphicon glyphicon-align-justify" aria-label="Move"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="col-xs-12 control-label">License Agreement:</label>
+        <div class="col-xs-6">
+            <div><label><input type="radio" name="licenseYes" id="licenseYes" value="yes" checked></label>Yes
+            </div>
+            <div><label><input type="radio" name="licenseNo" id="licenseNo" value="no"></label>No</div>
+        </div>
+        <div class="col-xs-5 col-xs-offset-1">
+            <span class="glyphicon glyphicon-pencil" aria-label="OK"></span>
+            <span class="glyphicon glyphicon-plus" aria-label="Add"></span>
+            <span class="glyphicon glyphicon-remove" aria-label="Remove"></span>
+            <span class="glyphicon glyphicon-align-justify" aria-label="Move"></span>
+        </div>
+    </div>
+
+    <div class="separatorCSS"></div>
+
+    <div class="form-group">
+        <label for="inputLine" class="col-xs-12 control-label">Add New Field:</label>
+        <div class="col-xs-6">
+            <select id="inputLine" class="form-control">
+                <option value="singleLine">Single Line Text</option>
+                <option value="date">Date</option>
+                <option value="dropDown">Dropdown</option>
+                <option value="checkBox">Checkboxes</option>
+                <option value="button">Radio buttons</option>
+                <option value="textFiled">Paragraph Text Field</option>
+            </select>
+        </div>
+        <div class="col-xs-5 col-xs-offset-1">
+            <span class="glyphicon glyphicon-none" aria-label="none"></span>
+            <span class="glyphicon glyphicon-plus" aria-label="none"></span>
+            <span class="glyphicon glyphicon-none" aria-label="none"></span>
+            <span class="glyphicon glyphicon-none" aria-label="none"></span>
+        </div>
+    </div>
+</form>
