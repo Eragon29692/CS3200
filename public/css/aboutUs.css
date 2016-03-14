@@ -1,0 +1,10 @@
+.carousel-container {
+    height: 200px;
+}
+
+.carousel-control.left {
+
+             background-image: none;
+         .reset-filter(); // reset IE gradient filters
+
+}
