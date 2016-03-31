@@ -8,8 +8,7 @@ module.exports = function () {
         updateSongById: updateSongById,
         /////////////////////
         createSong: createSong,
-        findAllSongs: findAllSongs,
-        findSongById: findSongById
+        findAllSongs: findAllSongs
     };
     return api;
 
@@ -96,14 +95,6 @@ module.exports = function () {
         return mock;
     }
 
-    function findSongById(songId) {
-        for (var s in mock) {
-            if (mock[s]._id === songId) {
-                return mock[s];
-            }
-        }
-        return null;
-    }
 /*
     function findMovieByImdbID(imdbID) {
         for (var m in movies) {

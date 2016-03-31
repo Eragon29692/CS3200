@@ -1,13 +1,46 @@
 <h1 class="search-page-header text-center">Search</h1>
 
 <form name="model.myform" class="form-horizontal">
-    <input ng-model="model.song.title"
-           class="col-xs-8 form-control"
+    <input ng-model="model.songTitle"
+           class="form-control"
            placeholder="Search for song"/>
-    <button ng-click="model.search(model.movie)"
+    <button ng-click="model.search(model.songTitle)"
             class="btn btn-primary btn-block">
         Search
     </button>
+
+    <div ng-if="model.data">
+        <br>
+        <br>
+        <h3>Search Results</h3>
+        <table class="table table-striped table-responsive">
+            <thead>
+            <tr>
+                <th class="col-xs-3">Cover</th>
+                <th class="col-xs-3">Title</th>
+                <th class="col-xs-3">Artist</th>
+                <th class="col-xs-3">Album</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="song in model.data.tracks.items">
+                <td>
+                    <img ng-src="{{song.album.images[0].url}}"
+                         height="100px"/>
+                </td>
+                <td>
+                    <!--a href="#/details/{{movie.imdbID}}">
+                        {{movie.Title}}
+                    </a-->
+                    {{song.name}}
+                </td>
+                <td>{{song.artists[0].name}}</td>
+                <td>{{song.album.name}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </form>
+
 
 

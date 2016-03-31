@@ -1,0 +1,37 @@
+<h1 class="project-page-header">{{currentUser.username}}'s Library</h1>
+<ul class="nav nav-tabs">
+    <li role="presentation" class="inactive"><a href="#/library">Tracks</a></li>
+    <li role="presentation" class="active"><a href="#/playlist">Playlist</a></li>
+</ul>
+<div ng-controller="PlaylistController" class="table-responsive">
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th class="col-xs-9"><span class="glyphicon glyphicon-triangle-bottom" aria-label="Sort"></span> Playlist Name
+            </th>
+            <th class="col-xs-3">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><input ng-model="playlist.title" type="text" class="form-control" id="inputPlaylist"
+                       placeholder="Playlist's name" required></td>
+            <td>
+                <span ng-click="updatePlaylist(playlist);" class="glyphicon glyphicon-ok forms-glyphicon"
+                      aria-label="Update"></span>
+                <span ng-click="addPlaylist(playlist);" class="glyphicon glyphicon-plus forms-glyphicon"
+                      aria-label="Add"></span>
+            </td>
+        </tr>
+        <tr ng-repeat="playlist in playlists">
+            <td><a ng-href="#/playlist/{{playlist._id}}/songs">{{playlist.title}}</a></td>
+            <td>
+                <span ng-click="selectPlaylist(playlist);" class="glyphicon glyphicon-pencil forms-glyphicon"
+                      aria-label="Select"></span>
+                <span ng-click="deletePlaylist(playlist);" class="glyphicon glyphicon-remove forms-glyphicon"
+                      aria-label="Delete"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

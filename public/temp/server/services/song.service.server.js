@@ -5,7 +5,7 @@ module.exports = function(app, songModel, userModel) {
     app.post("/api/project/song/deleteSongById", deleteSongById);
     app.post("/api/project/song/deleteUserSong", deleteUserSong);
     app.post("/api/project/song/updateSongById", updateSongById);
-    app.get("/api/project/song/findAllSongsForUser/:userId", findAllSongsForUser);
+    app.post("/api/project/song/findAllSongsForUser/:userId", findAllSongsForUser);
     app.get("/api/project/song/findAllSongs", findAllSongs);
 /*
     findAllSongsForUser: findAllSongsForUser,

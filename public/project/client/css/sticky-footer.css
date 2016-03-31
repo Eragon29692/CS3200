@@ -1,0 +1,54 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+}
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 50px;
+    background-color: #333333;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+footer > div.container {
+    width: auto;
+    margin-top: 10px;
+    font-size: large;
+    white-space: nowrap;
+    overflow: hidden;
+    color: white;
+    background-color: #333333;
+}
+
+footer > div.container > div > span.glyphicon {
+    margin-left: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+footer > div.container > div > label {
+    font-size: medium;
+    font-family: cursive;
+    margin-left: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+/*
+.container .text-muted {
+    margin: 20px 0;
+}
+*/
+
+
