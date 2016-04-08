@@ -1,5 +1,5 @@
-module.exports = function (app, db, mongoose) {
-    var userModel = require("./models/user.model.server.js")(db, mongoose);
+module.exports = function (app, mysql) {
+    var userModel = require("./models/user.model.server.js")(mysql);
     var songModel = require("./models/song.model.server.js")();
     var playlistModel = require("./models/playlist.model.js")();
 

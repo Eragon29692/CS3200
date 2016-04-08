@@ -143,11 +143,13 @@ module.exports = function (app, songModel, userModel) {
 
     function register (req, res) {
         var user = req.body;
+
         userModel
             .findUserByUsername(user.username)
             .then(
-                function(user){
-                    if(user) {
+                function(newUser){
+                    console.log("run1");
+                    if(newUser) {
                         res.json(null);
                     } else {
                         // encrypt the password when registering
@@ -156,11 +158,14 @@ module.exports = function (app, songModel, userModel) {
                     }
                 },
                 function(err){
+                    console.log("bad12345");
                     res.status(400).send(err);
                 }
             )
             .then(
                 function(user){
+                    console.log("run123456789");
+                    console.log(user);
                     if(user){
                         req.login(user, function(err) {
                             if(err) {

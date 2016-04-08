@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `musicdb`.`users` (
   `firstname` VARCHAR(45) NOT NULL,
   `lastname` VARCHAR(45) NOT NULL,
   `username` VARCHAR(45) NOT NULL,
-  `password` VARCHAR(45) NOT NULL,
+  `password` VARCHAR(200) NOT NULL,
   `email` VARCHAR(80) NOT NULL,
   `roles` ENUM('admin', 'user') NULL,
   PRIMARY KEY (`userid`),

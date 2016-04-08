@@ -5,7 +5,7 @@ DROP PROCEDURE IF EXISTS find_user_by_username $$
 CREATE PROCEDURE find_user_by_username(IN uname VARCHAR(50))
 BEGIN
 	SELECT u.userid, u.firstname, u.lastname, u.password, u.email, u.roles, 
-		GROUP_CONCAT(l.songid SEPARATOR ', ') AS songs
+		GROUP_CONCAT(l.songid SEPARATOR ',') AS songs
     FROM users u JOIN library l
     ON u.userid = l.userid
     WHERE username = uname;
@@ -15,7 +15,7 @@ DROP PROCEDURE IF EXISTS find_all_user $$
 CREATE PROCEDURE find_all_user()
 BEGIN
 	SELECT u.userid, u.firstname, u.lastname, u.password, u.email, u.roles, 
-		GROUP_CONCAT(l.songid SEPARATOR ', ') AS songs
+		GROUP_CONCAT(l.songid SEPARATOR ',') AS songs
     FROM users u JOIN library l
     ON u.userid = l.userid
     GROUP BY u.userid;
@@ -23,11 +23,12 @@ END$$
 
 DROP PROCEDURE IF EXISTS create_user $$
 CREATE PROCEDURE create_user(IN uid VARCHAR(50), fname VARCHAR(50), lname VARCHAR(50), 
-								uname VARCHAR(50), pword VARCHAR(50), email VARCHAR(50), 
+								uname VARCHAR(50), pword VARCHAR(200), email VARCHAR(50), 
                                 roles VARCHAR(50))
 BEGIN
 	INSERT INTO users(userid, firstname, lastname, username, password, email, roles)
     VALUES (uid, fname, lname, uname, pword, email, roles);
+    CALL find_user_by_userid(uid); 
 END$$
 
 DROP PROCEDURE IF EXISTS delete_user_by_id $$
@@ -49,8 +50,8 @@ END$$
 DROP PROCEDURE IF EXISTS find_user_by_userid $$
 CREATE PROCEDURE find_user_by_userid(IN uid VARCHAR(50))
 BEGIN
-	SELECT u.userid, u.firstname, u.lastname, u.password, u.email, u.roles, 
-		GROUP_CONCAT(l.songid SEPARATOR ', ') AS songs
+	SELECT u.userid, u.username, u.firstname, u.lastname, u.password, u.email, u.roles, 
+		GROUP_CONCAT(l.songid SEPARATOR ',') AS songs
     FROM users u JOIN library l
     ON u.userid = l.userid
     WHERE u.userid = uid;
