@@ -62,14 +62,10 @@ CREATE TABLE IF NOT EXISTS `musicdb`.`library` (
   PRIMARY KEY (`userid`, `songid`),
   CONSTRAINT `library_song_fk`
     FOREIGN KEY (`songid`)
-    REFERENCES `musicdb`.`songs` (`songid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES `musicdb`.`songs` (`songid`),
   CONSTRAINT `library_user_fk`
     FOREIGN KEY (`userid`)
-    REFERENCES `musicdb`.`user` (`userid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `musicdb`.`user` (`userid`))
 ENGINE = InnoDB;
 
 
@@ -85,14 +81,10 @@ CREATE TABLE IF NOT EXISTS `musicdb`.`comments` (
   PRIMARY KEY (`userid`, `songid`),
   CONSTRAINT `comments_user_fk`
     FOREIGN KEY (`userid`)
-    REFERENCES `musicdb`.`user` (`userid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES `musicdb`.`user` (`userid`),
   CONSTRAINT `comments_song_fk`
     FOREIGN KEY (`songid`)
-    REFERENCES `musicdb`.`songs` (`songid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `musicdb`.`songs` (`songid`))
 ENGINE = InnoDB;
 
 
@@ -108,14 +100,10 @@ CREATE TABLE IF NOT EXISTS `musicdb`.`playlists` (
   INDEX `playlist_song_fk_idx` (`songid` ASC),
   CONSTRAINT `playlist_user_fk`
     FOREIGN KEY (`userid`)
-    REFERENCES `musicdb`.`user` (`userid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
+    REFERENCES `musicdb`.`user` (`userid`),
   CONSTRAINT `playlist_song_fk`
     FOREIGN KEY (`songid`)
-    REFERENCES `musicdb`.`songs` (`songid`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
+    REFERENCES `musicdb`.`songs` (`songid`))
 ENGINE = InnoDB;
 
 
