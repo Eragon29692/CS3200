@@ -38,8 +38,9 @@
         function deleteSong(songId) {
             PlaylistDetailService.deleteSongFromPlaylist(songId, $routeParams.playlistId).then(function (respone) {
                 console.log(respone.data);
+                render();
             });
-            render();
+
         }
 
         //can be delegated to just the last line

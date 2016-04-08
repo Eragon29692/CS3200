@@ -52,15 +52,15 @@
         function deleteSong(song) {
             SongService.deleteSongById(song).then( function (respone) {
                 console.log(respone.data);
+                render();
             });
-            render();
         }
 
         function deleteUserSong(song) {
             SongService.deleteUserSong(song).then( function (respone) {
                 console.log(respone.data);
+                render();
             });
-            render();
         }
         //can be delegated to just the last line
         function selectSong(song) {
@@ -77,8 +77,8 @@
         function addSongToPlaylist(songId, playlistId) {
             PlaylistDetailService.addSongToPlaylist(songId, playlistId).then( function (response) {
                 console.log("added");
+                render();
             });
-            render();
         }
     }
 })();

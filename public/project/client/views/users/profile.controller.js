@@ -16,6 +16,7 @@
         function init() {
             var user = UserService.findUserByID().then(function (respone) {
                 vm.user = respone.data;
+                delete vm.user.password;
                 //console.log(respone.data);
             });
 
@@ -26,13 +27,16 @@
         init();
 
         function update(user) {
-            if (vm.myform.$valid)
-                console.log(user);
-            UserService.updateUser(user).then(function (respone) {
-                console.log(respone.data);
-                //$rootScope.currentUser = respone;
-                $location.url("/profile");
-            });
+            if (vm.myform.$valid) {
+                if (user.password == "") {
+                    delete user.password
+                }
+                UserService.updateUser(user).then(function (respone) {
+                    console.log(respone.data);
+                    //$rootScope.currentUser = respone;
+                    $location.url("/profile");
+                });
+            }
         }
     }
 })();

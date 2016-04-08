@@ -39,15 +39,15 @@
             if (!(playlist === undefined))
                 PlaylistService.updatePlaylistById(playlist._id, playlist).then (function (respone) {
                     console.log(respone.data);
+                    render();
                 });
-            render();
         }
 
         function deletePlaylist(playlist) {
             PlaylistService.deletePlaylistById(playlist._id).then (function (respone) {
                 console.log(respone.data);
+                render();
             });
-            render();
         }
 
         function selectPlaylist(playlist) {

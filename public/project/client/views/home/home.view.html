@@ -8,7 +8,9 @@
             class="btn btn-primary btn-block">
         Search
     </button>
-
+    <div ng-if="model.clicked && !model.data">
+        <h2 class="homepage-center-text"><br>Please wait ...</h2>
+    </div>
     <div ng-if="model.data">
         <br>
         <br>
@@ -25,13 +27,16 @@
             <tbody>
             <tr ng-repeat="song in model.data.tracks.items">
                 <td>
-                    <img ng-src="{{song.album.images[0].url}}"
-                         height="100px"/>
+                    <div class="image-homepage-container">
+                        <img ng-src="{{song.album.images[0].url}}"
+                             height="100px"/>
+                        <div class="after">
+                            <span ng-click="model.addSong(song)"
+                                  class=" glyphicon glyphicon-plus image-homepage-glyphicon"></span>
+                        </div>
+                    </div>
                 </td>
                 <td>
-                    <!--a href="#/details/{{movie.imdbID}}">
-                        {{movie.Title}}
-                    </a-->
                     {{song.name}}
                 </td>
                 <td>{{song.artists[0].name}}</td>

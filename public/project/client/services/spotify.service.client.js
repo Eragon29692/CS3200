@@ -15,7 +15,7 @@
         }
 */
         function searchSongByName(track) {
-            return $http.get("http://api.spotify.com/v1/search?q=" + track + "&type=track&limit=10");
+            return $http.get("/api/project/spotify/" + track);
         }
     }
 })();

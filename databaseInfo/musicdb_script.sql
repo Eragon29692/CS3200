@@ -23,7 +23,7 @@ USE `musicdb` ;
 -- -----------------------------------------------------
 -- Table `musicdb`.`user`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `musicdb`.`user` (
+CREATE TABLE IF NOT EXISTS `musicdb`.`users` (
   `userid` VARCHAR(50) NOT NULL,
   `firstname` VARCHAR(45) NOT NULL,
   `lastname` VARCHAR(45) NOT NULL,
@@ -31,7 +31,6 @@ CREATE TABLE IF NOT EXISTS `musicdb`.`user` (
   `password` VARCHAR(45) NOT NULL,
   `email` VARCHAR(80) NOT NULL,
   `roles` ENUM('admin', 'user') NULL,
-  `` VARCHAR(45) NULL,
   PRIMARY KEY (`userid`),
   UNIQUE INDEX `username_UNIQUE` (`username` ASC),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
@@ -58,7 +57,6 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `musicdb`.`library` (
   `userid` VARCHAR(50) NOT NULL,
   `songid` VARCHAR(50) NOT NULL,
-  `librarycol` VARCHAR(45) NULL,
   INDEX `library_song_fk_idx` (`songid` ASC),
   INDEX `library_user_fk_idx` (`userid` ASC),
   PRIMARY KEY (`userid`, `songid`),
@@ -101,7 +99,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `musicdb`.`playlist`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `musicdb`.`playlist` (
+CREATE TABLE IF NOT EXISTS `musicdb`.`playlists` (
   `playlist_id` VARCHAR(50) NOT NULL,
   `userid` VARCHAR(50) NOT NULL,
   `songid` VARCHAR(50) NOT NULL,

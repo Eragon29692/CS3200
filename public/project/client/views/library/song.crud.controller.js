@@ -42,15 +42,15 @@
             if (!(song === undefined))
                 SongService.updateSongById(song).then(function (respone) {
                     console.log(respone.data);
+                    render();
                 });
-            render();
         }
 
         function deleteSong(song) {
             SongService.deleteSongById(song).then( function (respone) {
                 console.log(respone.data);
+                render();
             });
-            render();
         }
 
 
