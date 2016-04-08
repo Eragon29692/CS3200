@@ -36,7 +36,7 @@ module.exports = function (mysql) {
                 deferred.reject(err);
             } else {
                 console.log(rows);
-                deferred.resolve(convertToFrontEnd(rows[0]));
+                deferred.resolve(convertToFrontEnd(rows[0][0]));
             }
         });
         return deferred.promise;
