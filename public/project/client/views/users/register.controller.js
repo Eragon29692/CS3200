@@ -27,7 +27,7 @@
                         }
                     },
                     function (err) {
-                        console.log(error);
+                        console.log(err);
                         vm.error = err;
                     }
                 );
