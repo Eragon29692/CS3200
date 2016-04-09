@@ -26,6 +26,9 @@
 
         function render() {
             UserService.findAllUsers().then(function (response) {
+                for (var user in response.data) {
+                    delete response.data[user].password;
+                }
                 $scope.users = response.data;
             });
         }
@@ -37,6 +40,7 @@
                 user.songs = user.songs.split(",");
                 UserService.createUser(user).then(function (respone) {
                     console.log(respone.data);
+                    delete respone.data.password;
                     selectUser(respone.data);
                 });
 
@@ -51,6 +55,7 @@
                 user.songs = user.songs.split(",");
                 UserService.updateUser(user).then(function (respone) {
                     console.log(respone.data);
+                    delete respone.data.password;
                     selectUser(respone.data);
                 });
 
@@ -73,7 +78,7 @@
                 email: user.email,
                 roles: user.roles,
                 username: user.username,
-                password: user.password,
+                //password: user.password,
                 songs: user.songs.toString()
             };
             //selectedUser.songs = selectedUser.songs.split(",");

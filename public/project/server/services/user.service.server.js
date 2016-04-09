@@ -45,20 +45,29 @@ module.exports = function (app, songModel, userModel) {
     function updateUser(req, res) {
         var user = req.body;
         var userID = user._id;
-        var oldUser = userModel.findUserByID(userID);
-        if (user.password)
-            user.password = bcrypt.hashSync(user.password);
-        else {
-            user.password = oldUser.password;
-        }
-        userModel.updateUser(userID, user).then(
-            function (doc) {
-                res.json(doc);
+        userModel.findUserByID(userID).then(
+            function (oldUser) {
+                if (user.password)
+                    user.password = bcrypt.hashSync(user.password);
+                else {
+                    user.password = oldUser.password;
+                }
+                userModel.updateUser(userID, user).then(
+                    function (doc) {
+                        res.json(doc);
+                    },
+                    function (err) {
+                        console.log("thus")
+                        res.status(400).send(err);
+                    }
+                );
             },
             function (err) {
                 res.status(400).send(err);
             }
         );
+
+
     }
 
     function deleteUserById(req, res) {
@@ -89,15 +98,17 @@ module.exports = function (app, songModel, userModel) {
         userModel
             .findUserByUsername(username)
             .then(
-                function(user) {
-                    if(user && bcrypt.compareSync(password, user.password)) {
+                function (user) {
+                    if (user && bcrypt.compareSync(password, user.password)) {
                         return done(null, user);
                     } else {
                         return done(null, false);
                     }
                 },
-                function(err) {
-                    if (err) { return done(err); }
+                function (err) {
+                    if (err) {
+                        return done(err);
+                    }
                 }
             );
     }
@@ -118,10 +129,10 @@ module.exports = function (app, songModel, userModel) {
         userModel
             .findUserByID(user._id)
             .then(
-                function(user){
+                function (user) {
                     done(null, user);
                 },
-                function(err){
+                function (err) {
                     done(err, null);
                 }
             );
@@ -141,15 +152,15 @@ module.exports = function (app, songModel, userModel) {
         res.json(user);
     }
 
-    function register (req, res) {
+    function register(req, res) {
         var user = req.body;
 
         userModel
             .findUserByUsername(user.username)
             .then(
-                function(newUser){
+                function (newUser) {
                     console.log("run1");
-                    if(newUser) {
+                    if (newUser) {
                         res.json(null);
                     } else {
                         // encrypt the password when registering
@@ -157,18 +168,18 @@ module.exports = function (app, songModel, userModel) {
                         return userModel.createUser(user);
                     }
                 },
-                function(err){
+                function (err) {
                     console.log("bad12345");
                     res.status(400).send(err);
                 }
             )
             .then(
-                function(user){
+                function (user) {
                     console.log("run123456789");
                     console.log(user);
-                    if(user){
-                        req.login(user, function(err) {
-                            if(err) {
+                    if (user) {
+                        req.login(user, function (err) {
+                            if (err) {
                                 res.status(400).send(err);
                             } else {
                                 res.json(user);
@@ -176,7 +187,7 @@ module.exports = function (app, songModel, userModel) {
                         });
                     }
                 },
-                function(err){
+                function (err) {
                     res.status(400).send(err);
                 }
             );

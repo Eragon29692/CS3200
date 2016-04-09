@@ -22,8 +22,12 @@ module.exports = function (mysql) {
             if (err) {
                 deferred.reject(err);
             } else {
-                console.log(rows);
-                deferred.resolve(convertToFrontEnd(rows[0]));
+                for (var user in rows[0]) {
+                    rows[0][user] = convertToFrontEnd(rows[0][user]);
+                }
+                console.log("111111111111111111111111111111111111111111");
+                console.log(rows[0]);
+                deferred.resolve(rows[0]);
             }
         });
         return deferred.promise;
@@ -35,7 +39,6 @@ module.exports = function (mysql) {
             if (err) {
                 deferred.reject(err);
             } else {
-                console.log(rows);
                 deferred.resolve(convertToFrontEnd(rows[0][0]));
             }
         });
@@ -49,7 +52,6 @@ module.exports = function (mysql) {
         var deferred = q.defer();
         user._id = (new Date()).getTime().toString();
         user = convertToDatabase(user);
-        console.log(user);
         mysql.query('Call create_user("' + user.userid + '","' + user.firstname + '","'
             + user.lastname + '","' + user.username + '","' + user.password + '","' + user.email + '","' + user.roles + '")', function (err, rows) {
             if (err) {
@@ -59,7 +61,6 @@ module.exports = function (mysql) {
                 deferred.resolve(convertToFrontEnd(rows[0][0]));
             }
         });
-        console.log("finished");
         return deferred.promise;
     }
 
@@ -69,7 +70,6 @@ module.exports = function (mysql) {
             if (err) {
                 deferred.reject(err);
             } else {
-                console.log(rows);
                 deferred.resolve(convertToFrontEnd(rows[0]));
             }
         });
@@ -84,8 +84,8 @@ module.exports = function (mysql) {
             if (err) {
                 deferred.reject(err);
             } else {
-                console.log("runrunrun");
-                deferred.resolve(convertToFrontEnd(rows[0]));
+
+                deferred.resolve(convertToFrontEnd(rows[0][0]));
             }
         });
         return deferred.promise;
@@ -141,7 +141,7 @@ module.exports = function (mysql) {
 
     function convertToFrontEnd(user) {
         console.log(user);
-        if (user.userid) {
+        if (user) {
             var roles = [user.roles];
             var converted = {
                 _id: user.userid,
@@ -155,8 +155,6 @@ module.exports = function (mysql) {
             }
             if (converted.songs)
                 converted.songs = converted.songs.split(",");
-            console.log("11111111111111111111111111111111111111111111111111111111111111111111111");
-            console.log(converted);
             return converted
         }
         return null;
