@@ -25,18 +25,22 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+var mysqlConnect;
 
 if (process.env.OPENSHIFT_MYSQL_DB_PASSWORD) {
-    connectionString = 'mysql://' +
-        process.env.OPENSHIFT_MYSQL_DB_HOST + ':' +
-        process.env.OPENSHIFT_MYSQL_DB_PORT + '/' +
-        "musicdb";
+    mysqlConnect = mysql.createConnection({
+        host: process.env.OPENSHIFT_MYSQL_DB_HOST,
+        port: process.env.OPENSHIFT_MYSQL_DB_PORT,
+        user: process.env.OPENSHIFT_MYSQL_DB_USERNAME,
+        password: process.env.OPENSHIFT_MYSQL_DB_PASSWORD,
+        database: 'musicdb'
+    });
+} else {
+    mysqlConnect = mysql.createConnection(connectionString);
 }
 
-// connect to the database
-var mysqlConnect = mysql.createConnection(connectionString);
 
-mysqlConnect.connect(function(err) {
+mysqlConnect.connect(function (err) {
     if (err) {
         console.error('error connecting: ' + err.stack);
         return;
