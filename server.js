@@ -30,8 +30,8 @@ if (process.env.OPENSHIFT_MYSQL_DB_PASSWORD) {
     connectionString = process.env.OPENSHIFT_MYSQL_DB_USERNAME + ":" +
         process.env.OPENSHIFT_MYSQL_DB_PASSWORD + "@" +
         process.env.OPENSHIFT_MYSQL_DB_HOST + ':' +
-        process.env.OPENSHIFT_MYSQL_DB_PORT + '/' +
-        "musicdb";
+        process.env.OPENSHIFT_MYSQL_DB_PORT + '///' +
+        "musicdb32131231231";
 }
 
 // connect to the database
