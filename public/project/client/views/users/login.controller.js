@@ -33,8 +33,8 @@
                             $location.url("/profile");
                             //}
                             //else {
-                            console.log("invalid combination");
-                            vm.invalidSubmit = true;
+                            //console.log("invalid combination");
+                            //vm.invalidSubmit = true;
                             //}
                         },
                         function (err) {

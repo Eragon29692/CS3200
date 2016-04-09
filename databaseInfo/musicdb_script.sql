@@ -106,7 +106,10 @@ CREATE TABLE IF NOT EXISTS `musicdb`.`playlists` (
     REFERENCES `musicdb`.`songs` (`songid`))
 ENGINE = InnoDB;
 
-
+INSERT INTO `musicdb`.`users` (`userid`, `firstname`, `lastname`, `username`, `password`, `email`, `roles`) VALUES ('1460166264029', 'admin', 'admin', 'admin', '$2a$10$8qX7WSnqyKAuH4fuNhFTKOiSRu.pV/vzaCyunw1xNQ3JMlep3HLYS', 'admin@admin.new', 'admin');
+INSERT INTO `musicdb`.`library` (`userid`, `songid`) VALUES ('1460166264029', '000');
+INSERT INTO `musicdb`.`library` (`userid`, `songid`) VALUES ('1460166264029', '010');
+INSERT INTO `musicdb`.`library` (`userid`, `songid`) VALUES ('1460166264029', '020');
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
