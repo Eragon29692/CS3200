@@ -95,8 +95,6 @@ module.exports = function (app, songModel, userModel) {
     }
 
     function localStrategy(username, password, done) {
-        console.log(username);
-        console.log(password);
         userModel
             .findUserByUsername(username)
             .then(

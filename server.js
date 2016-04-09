@@ -27,11 +27,10 @@ app.use(passport.session());
 
 
 if (process.env.OPENSHIFT_MYSQL_DB_PASSWORD) {
-    connectionString = process.env.OPENSHIFT_MYSQL_DB_USERNAME + ":" +
-        process.env.OPENSHIFT_MYSQL_DB_PASSWORD + "@" +
+    connectionString = 'mysql://' +
         process.env.OPENSHIFT_MYSQL_DB_HOST + ':' +
-        process.env.OPENSHIFT_MYSQL_DB_PORT + '///' +
-        "musicdb32131231231";
+        process.env.OPENSHIFT_MYSQL_DB_PORT + '/' +
+        "musicdb";
 }
 
 // connect to the database
