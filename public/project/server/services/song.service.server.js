@@ -72,13 +72,31 @@ module.exports = function (app, songModel, userModel) {
 
     function searchSongSpotify(req, res) {
         var track = req.params.track;
-        request("http://api.spotify.com/v1/search?q=" + track + "&type=track&limit=10", function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                var info = JSON.parse(body);
-                res.json(info);
-            }
-        })
-
+        var songs = [];
+        request("http://api.spotify.com/v1/search?q=" + track + "&type=track&limit=10",
+            function (error, response, body) {
+                if (!error && response.statusCode == 200) {
+                    var info = JSON.parse(body);
+                    info = info.tracks.items;
+                    for (var i = 0; i < info.length; i++) {
+                        var song = {};
+                        //console.log(info[i]);
+                        //console.log(info[i].id);
+                        song._id = info[i].id;
+                        song.name = info[i].name;
+                        song.album = info[i].album.name;
+                        song.cover = info[i].album.images[0].url;
+                        var artistString = "";
+                        for (a in info[i].artists) {
+                            artistString += info[i].artists[a].name + ", ";
+                        }
+                        song.artist = artistString.substring(0, artistString.length - 2);
+                        songs.push(song);
+                    }
+                    console.log(songs);
+                    res.json(songs);
+                }
+            });
     }
 
 }
