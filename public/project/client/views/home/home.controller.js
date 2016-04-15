@@ -19,6 +19,7 @@
             //}
             loggin();
         }
+
         init();
 
         function search(songTitle) {
@@ -34,25 +35,24 @@
                     });
             }
         }
+
         //working on adding song
         function addSong(song) {
-            SongService.createSong(song).then(function (respone) {
-                console.log(respone.data);
-            });
+            if ($rootScope.currentUser) {
+                SongService.createSong(song).then(function (respone) {
+                    console.log(respone.data);
+                });
+            }
         }
 
-        function loggin ()
-        {
+        function loggin() {
             var deferred = $q.defer();
-            $http.get('/api/loggedin').success(function(user)
-            {
-                if (user !== '0')
-                {
+            $http.get('/api/loggedin').success(function (user) {
+                if (user !== '0') {
                     $rootScope.currentUser = user;
                     deferred.resolve();
                 }
-                else
-                {
+                else {
                     console.log("You should loggin");
                     deferred.reject();
                 }

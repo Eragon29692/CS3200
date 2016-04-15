@@ -159,7 +159,6 @@ module.exports = function (app, songModel, userModel) {
             .findUserByUsername(user.username)
             .then(
                 function (newUser) {
-                    console.log("run1");
                     if (newUser) {
                         res.json(null);
                     } else {
@@ -169,13 +168,11 @@ module.exports = function (app, songModel, userModel) {
                     }
                 },
                 function (err) {
-                    console.log("bad12345");
                     res.status(400).send(err);
                 }
             )
             .then(
                 function (user) {
-                    console.log("run123456789");
                     console.log(user);
                     if (user) {
                         req.login(user, function (err) {
