@@ -21,7 +21,7 @@
         return api;
 
         function createSong(song) {
-            return $http.post("/api/project/song/createSong", song);
+            return $http.post("/api/project/song/createSong/" + $rootScope.currentUser._id, song);
         }
 
         function deleteSongById(song) {

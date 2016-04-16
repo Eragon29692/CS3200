@@ -71,7 +71,7 @@ END$$
 DROP PROCEDURE IF EXISTS add_user_song $$
 CREATE PROCEDURE add_user_song(IN uid VARCHAR(50), sid VARCHAR(50))
 BEGIN
-	INSERT IGNORE INTO library(userid, songid)
+	INSERT INTO library(userid, songid)
     VALUES (uid, sid);
 END$$
 

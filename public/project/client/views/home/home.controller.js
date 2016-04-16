@@ -38,6 +38,7 @@
 
         //working on adding song
         function addSong(song) {
+            console.log(song);
             if ($rootScope.currentUser) {
                 SongService.createSong(song).then(function (respone) {
                     console.log(respone.data);

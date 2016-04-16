@@ -79,8 +79,13 @@
                 roles: user.roles,
                 username: user.username,
                 //password: user.password,
-                songs: user.songs.toString()
+                //songs: user.songs.toString()
             };
+            if (user.songs) {
+                selectedUser.songs = user.songs.toString();
+            } else {
+                selectedUser.songs = "";
+            }
             //selectedUser.songs = selectedUser.songs.split(",");
             $scope.user = selectedUser;
         }

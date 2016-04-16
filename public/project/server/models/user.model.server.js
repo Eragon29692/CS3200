@@ -12,6 +12,7 @@ module.exports = function (mysql) {
         deleteUserById: deleteUserById,
         updateUser: updateUser,
         findUserByID: findUserByID,
+        addSongForUser: addSongForUser
         //deleteUserSong: deleteUserSong
     };
     return api;
@@ -25,7 +26,7 @@ module.exports = function (mysql) {
                 for (var user in rows[0]) {
                     rows[0][user] = convertToFrontEnd(rows[0][user]);
                 }
-                console.log("111111111111111111111111111111111111111111");
+                //console.log("111111111111111111111111111111111111111111");
                 console.log(rows[0]);
                 deferred.resolve(rows[0]);
             }
@@ -105,6 +106,19 @@ module.exports = function (mysql) {
         return deferred.promise;
     }
 
+
+    function addSongForUser(userId, songId) {
+        var deferred = q.defer();
+        mysql.query('Call add_user_song("' + userId + '","' + songId + '")', function (err, rows) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                console.log(rows);
+                deferred.resolve(convertToFrontEnd(rows));//return null object
+            }
+        });
+        return deferred.promise;
+    }
     /*
      function deleteUserSong(songID, userID) {
      var deferred = q.defer();
@@ -159,5 +173,6 @@ module.exports = function (mysql) {
         }
         return null;
     }
+
 
 }

@@ -26,6 +26,7 @@
 
         function render() {
             SongService.findAllSongs().then(function (response) {
+                console.log(response.data);
                 $scope.songs = response.data;
             });
         }

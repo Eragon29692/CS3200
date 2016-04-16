@@ -15,7 +15,7 @@ BEGIN
 END$$
 
 DROP PROCEDURE IF EXISTS find_song_by_id $$
-CREATE PROCEDURE find_song_id(IN id VARCHAR(50))
+CREATE PROCEDURE find_song_by_id(IN id VARCHAR(50))
 BEGIN
 	SELECT * FROM songs WHERE songid = id;
 END $$
@@ -27,6 +27,7 @@ CREATE PROCEDURE create_song(IN in_id VARCHAR(50), IN in_title VARCHAR(50),
 BEGIN
 	INSERT INTO songs(songid, title, artist, album, year)
     VALUES (in_id, in_title, in_artist, in_album, in_year);
+    Call find_song_by_id(in_id);
 END$$
 
 DROP PROCEDURE IF EXISTS update_song_by_id $$

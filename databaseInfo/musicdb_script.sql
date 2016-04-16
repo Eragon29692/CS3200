@@ -21,7 +21,7 @@ CREATE SCHEMA IF NOT EXISTS `musicdb` DEFAULT CHARACTER SET utf8 ;
 USE `musicdb` ;
 
 -- -----------------------------------------------------
--- Table `musicdb`.`user`
+-- Table `musicdb`.`users`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `musicdb`.`users` (
   `userid` VARCHAR(50) NOT NULL,
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `musicdb`.`library` (
     REFERENCES `musicdb`.`songs` (`songid`),
   CONSTRAINT `library_user_fk`
     FOREIGN KEY (`userid`)
-    REFERENCES `musicdb`.`user` (`userid`))
+    REFERENCES `musicdb`.`users` (`userid`))
 ENGINE = InnoDB;
 
 
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `musicdb`.`comments` (
   PRIMARY KEY (`userid`, `songid`),
   CONSTRAINT `comments_user_fk`
     FOREIGN KEY (`userid`)
-    REFERENCES `musicdb`.`user` (`userid`),
+    REFERENCES `musicdb`.`users` (`userid`),
   CONSTRAINT `comments_song_fk`
     FOREIGN KEY (`songid`)
     REFERENCES `musicdb`.`songs` (`songid`))
@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `musicdb`.`playlists` (
   INDEX `playlist_song_fk_idx` (`songid` ASC),
   CONSTRAINT `playlist_user_fk`
     FOREIGN KEY (`userid`)
-    REFERENCES `musicdb`.`user` (`userid`),
+    REFERENCES `musicdb`.`users` (`userid`),
   CONSTRAINT `playlist_song_fk`
     FOREIGN KEY (`songid`)
     REFERENCES `musicdb`.`songs` (`songid`))
