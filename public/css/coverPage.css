@@ -131,6 +131,13 @@ body {
     text-align: center;
 }
 
+.carousel-img {
+    position: relative;
+    margin-top: 50%;
+    margin-left: -50%;
+    margin-bottom: 5%;
+}
+
 /*
  * Affix and center
  */
@@ -158,6 +165,16 @@ body {
 
     .about-me {
         text-align: left;
+        margin-left: -1%;
+    }
+
+    .carousel-caption h4 {
+        margin-left: -30%;
+    }
+
+    .carousel-caption h2 {
+       margin-top: 15%;
+       margin-left: 30%;
     }
 }
 
