@@ -13,15 +13,22 @@
             findAllSongsForUser: findAllSongsForUser,
             findAllSongs: findAllSongs,
             deleteSongById: deleteSongById,
-            deleteUserSong: deleteUserSong,
             updateSongById: updateSongById,
-            /////////////////////
-            createSong: createSong
+            createSong: createSong,
+            addSongForUser: addSongForUser,
+            deleteUserSong: deleteUserSong,
+            addComment: addComment,
+            deleteComment: deleteComment,
+            findSongById: findSongById
         };
         return api;
 
         function createSong(song) {
-            return $http.post("/api/project/song/createSong/" + $rootScope.currentUser._id, song);
+            return $http.post("/api/project/song/createSong", song);
+        }
+
+        function addSongForUser(song) {
+            return $http.post("/api/project/MusicBD/addSongForUser/" + $rootScope.currentUser._id, song);
         }
 
         function deleteSongById(song) {
@@ -33,7 +40,7 @@
             var deleteInfo = {};
             deleteInfo.songID = song._id;
             deleteInfo.userID = $rootScope.currentUser._id;
-            return $http.post("/api/project/song/deleteUserSong", deleteInfo);
+            return $http.post("/api/project/MusicBD/deleteUserSong", deleteInfo);
         }
 
         function updateSongById(song) {
@@ -48,5 +55,16 @@
             return $http.get("/api/project/song/findAllSongs");
         }
 
+        function addComment(comment) {
+            return $http.post("/api/project/song/addComment", comment);
+        }
+
+        function deleteComment(comment) {
+            return $http.post("/api/project/song/deleteComment", comment);
+        }
+
+        function findSongById(songId) {
+            return $http.get("/api/project/song/findSongById/" + songId);
+        }
     }
 })();

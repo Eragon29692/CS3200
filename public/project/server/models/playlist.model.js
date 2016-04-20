@@ -1,5 +1,14 @@
 var mock = require("./playlist.mock.json");
-module.exports = function () {
+// load q promise library
+var q = require("q");
+
+module.exports = function (db, mongoose) {
+
+    // load user schema
+    var PlaylistSchema = require("./playlist.schema.server.js")(mongoose);
+
+    // create user model from schema
+    var PlaylistModel = mongoose.model('playlistProject', PlaylistSchema);
 
     var api = {
         Create: Create,
@@ -7,12 +16,12 @@ module.exports = function () {
         FindByID: FindByID,
         Update: Update,
         Delete: Delete,
-        findPlaylistByTitle: findPlaylistByTitle,
+        //findPlaylistByTitle: findPlaylistByTitle,
         findUserPlaylists: findUserPlaylists,
 
         //song endpoint functions
         findAllSongInPlaylist: findAllSongInPlaylist,
-        findSongInPlaylist: findSongInPlaylist,
+        //findSongInPlaylist: findSongInPlaylist,
         deleteSongInPlaylist: deleteSongInPlaylist,
         addSongInPlaylist: addSongInPlaylist,
         updateOrder: updateOrder
@@ -21,73 +30,98 @@ module.exports = function () {
 
 
     function Create(playlist) {
+        var deferred = q.defer();
         var newPlaylist = {
-            _id: (new Date()).getTime().toString(),
             title: playlist.title,
             userId: playlist.userId,
             songs: []
         };
-        mock.push(newPlaylist);
-        return newPlaylist;
+        PlaylistModel.create(newPlaylist, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function  FindAll() {
-        return mock;
+        var deferred = q.defer();
+        PlaylistModel.find({}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(doc);
+            }
+        });
+        return deferred.promise;
     }
 
     function FindByID(playlistId) {
-        for (var f in mock) {
-            if (playlistId === mock[f]._id) {
-                return mock[f];
+        var deferred = q.defer();
+        PlaylistModel.findById(playlistId, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(doc);
             }
-        }
-        return null;
+        });
+        return deferred.promise;
     }
 
     function Update(playlistId, newPlaylist) {
-        var updatePlaylist = {
-            _id: newPlaylist._id,
-            title: newPlaylist.title,
-            userId: newPlaylist.userId,
-            songs: newPlaylist.songs
-        };
-        for (var f in mock) {
-            if (playlistId === mock[f]._id) {
-                mock[f] = updatePlaylist;
-                return updatePlaylist;
+        var deferred = q.defer();
+        PlaylistModel.findById(playlistId, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                doc.title = newPlaylist.title;
+                doc.songs = newPlaylist.songs;
+                doc.save();
+                deferred.resolve(doc);
             }
-        }
-        return null;
+        });
+        return deferred.promise;
     }
 
     function Delete(playlistId) {
-        console.log(playlistId);
-        for (var i = mock.length - 1; i >= 0; i--) {
-            if (playlistId == mock[i]._id) {
-                mock.splice(i, 1);
-                return mock;
+        var deferred = q.defer();
+        PlaylistModel.findById(playlistId, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                doc.remove();
+                deferred.resolve(doc);
             }
-        }
-        return null;
+        });
+        return deferred.promise;
     }
 
+/*
     function findPlaylistByTitle(title) {
-        for (var f in mock) {
-            if (title === mock[f].title) {
-                return mock[f];
+        var deferred = q.defer();
+        PlaylistModel.findOne({}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(doc);
             }
-        }
-        return null;
+        });
+        return deferred.promise;
     }
+*/
 
     function findUserPlaylists(userId) {
-        var userPlaylists = [];
-        for (var f in mock) {
-            if (userId === mock[f].userId) {
-                userPlaylists.push(mock[f]);
+        var deferred = q.defer();
+        PlaylistModel.find({userId : userId}, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(doc);
             }
-        }
-        return userPlaylists;
+        });
+        return deferred.promise;
     }
 
 
@@ -95,9 +129,17 @@ module.exports = function () {
 
 
     function findAllSongInPlaylist(playlistId) {
-        return FindByID(playlistId).songs;
+        var deferred = q.defer();
+        PlaylistModel.findById(playlistId, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(doc.songs);
+            }
+        });
+        return deferred.promise;
     }
-
+/*
     function findSongInPlaylist(songId, playlistId) {
         var songs = findAllSongInPlaylist(playlistId);
         for (var f in songs) {
@@ -107,33 +149,55 @@ module.exports = function () {
         }
         return null;
     }
-
+*/
     function deleteSongInPlaylist(songId, playlistId) {
-        var songs = findAllSongInPlaylist(playlistId);
-        console.log(songId);
-        for (var i = songs.length - 1; i >= 0; i--) {
-            if (songId === songs[i]) {
-                songs.splice(i, 1);
-                return songs;
+        var deferred = q.defer();
+        PlaylistModel.findById(playlistId, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                for (var i = doc.songs.length - 1; i >= 0; i--) {
+                    if (songId === doc.songs[i]) {
+                        doc.songs.splice(i, 1);
+                        doc.save();
+                        deferred.resolve(doc);
+                        return;
+                    }
+                }
             }
-        }
-        return null;
+        });
+        return deferred.promise;
     }
 
     function addSongInPlaylist(songId, playlistId) {
-        console.log("run2");
-        var songs = findAllSongInPlaylist(playlistId);
-        songs.push(songId);
-        return songs;
+        var deferred = q.defer();
+        PlaylistModel.findById(playlistId, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                doc.songs.push(songId);
+                doc.save();
+                deferred.resolve(doc.songs);
+            }
+        });
+        return deferred.promise;
     }
 
 
     function updateOrder(newOrder, playlistId) {
-        var songs = findAllSongInPlaylist(playlistId);
-        var temp = songs[newOrder.first];
-        songs[newOrder.first] = songs[newOrder.second];
-        songs[newOrder.second] = temp;
-        return songs;
+        var deferred = q.defer();
+        PlaylistModel.findById(playlistId, function (err, doc) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                var temp = doc.songs[newOrder.first];
+                doc.songs.splice(newOrder.first, 1);
+                doc.songs.splice(newOrder.second, 0, temp);
+                //console.log(doc.songs);
+                doc.save();
+                deferred.resolve(doc.songs);
+            }
+        });
+        return deferred.promise;
     }
-
 }

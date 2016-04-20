@@ -1,25 +1,19 @@
 var request = require('request');
 module.exports = function (app, songModel, userModel) {
-    //app.post("/api/project/user/:userId/movie/:imdbID", userLikesMovie);
-    //app.get("/api/project/movie/:imdbID/user", findUserLikes);
-    app.post("/api/project/song/createSong/:userId", createsong);
+
+    app.post("/api/project/song/createSong", createSong);
     app.post("/api/project/song/deleteSongById", deleteSongById);
-    app.post("/api/project/song/deleteUserSong", deleteUserSong);
     app.post("/api/project/song/updateSongById", updateSongById);
     app.get("/api/project/song/findAllSongsForUser/:userId", findAllSongsForUser);
     app.get("/api/project/song/findAllSongs", findAllSongs);
-    app.get("/api/project/spotify/:track", searchSongSpotify);
+    app.get("/api/project/spotify/:track/:userId", searchSongSpotify);
+    app.post("/api/project/song/addComment", addComment);
+    app.post("/api/project/song/deleteComment", deleteComment);
+    app.get("/api/project/song/findSongById/:songId", findSongById);
 
-    /*
-     findAllSongsForUser: findAllSongsForUser,
-     deleteSongById: deleteSongById,
-     updateSongById: updateSongById,
-     /////////////////////
-     createSong: createSong
-     */
 
     function findAllSongs(req, res) {
-        var songs = songModel.findAllSongs().then(
+        songModel.findAllSongs().then(
             function (doc) {
                 res.json(doc);
             },
@@ -31,7 +25,6 @@ module.exports = function (app, songModel, userModel) {
 
     function findAllSongsForUser(req, res) {
         var userId = req.params.userId;
-        console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
         userModel.findUserByID(userId).then(
             function (user) {
                 songModel.findAllSongs().then(
@@ -58,19 +51,14 @@ module.exports = function (app, songModel, userModel) {
         );
     }
 
-    function createsong(req, res) {
+    function createSong(req, res) {
         var song = req.body;
-        var userId = req.params.userId;
+        if (song._id === undefined) {
+            song._id = (new Date()).getTime().toString();
+        }
         songModel.createSong(song).then(
             function (song) {
-                userModel.addSongForUser(userId, song._id).then(
-                    function (doc) {
-                        res.json(song);
-                    },
-                    function (err) {
-                        res.status(400).send(err);
-                    }
-                );
+                res.json(song);
             },
             function (err) {
                 res.status(400).send(err);
@@ -82,20 +70,6 @@ module.exports = function (app, songModel, userModel) {
         var song = req.body;
         console.log(song);
         var song = songModel.deleteSongById(song._id).then(
-            function (doc) {
-                res.json(doc);
-            },
-            function (err) {
-                res.status(400).send(err);
-            }
-        );
-    }
-
-    function deleteUserSong(req, res) {
-        var deleteInfo = req.body;
-        var userID = deleteInfo.userID;
-        var songID = deleteInfo.songID;
-        var userSong = userModel.deleteUserSong(songID, userID).then(
             function (doc) {
                 res.json(doc);
             },
@@ -119,8 +93,9 @@ module.exports = function (app, songModel, userModel) {
 
     function searchSongSpotify(req, res) {
         var track = req.params.track;
+        var userId = req.params.userId;
         var songs = [];
-        request("http://api.spotify.com/v1/search?q=" + track + "&type=track&limit=10",
+        request("http://api.spotify.com/v1/search?q=" + track + "&type=track&limit=20",
             function (error, response, body) {
                 if (!error && response.statusCode == 200) {
                     var info = JSON.parse(body);
@@ -132,17 +107,70 @@ module.exports = function (app, songModel, userModel) {
                         song.album = info[i].album.name;
                         song.cover = info[i].album.images[0].url;
                         song.year = "0000";
+                        song.comment = [];
                         var artistString = "";
                         for (a in info[i].artists) {
                             artistString += info[i].artists[a].name + ", ";
                         }
                         song.artist = artistString.substring(0, artistString.length - 2);
+                        song.inLibrary = "false";
                         songs.push(song);
                     }
-                    console.log(songs);
-                    res.json(songs);
+                    userModel.findUserByID(userId).then(
+                        function (user) {
+                            for (var i = 0; i < songs.length; i++) {
+                                if (user.songs.indexOf(songs[i]._id) != -1) {
+                                    songs[i].inLibrary = "true";
+                                }
+                            }
+                            res.json(songs);
+                        },
+                        function (err) {
+                            res.status(400).send(err);
+                        }
+                    );
                 }
             });
     }
+
+    function addComment(req, res) {
+        var comment = req.body;
+        var songId = comment.songId;
+        songModel.addComment(songId, comment).then(
+            function (doc) {
+                res.json(doc);
+            },
+            function (err) {
+                res.status(400).send(err);
+            }
+        );
+    }
+
+    function deleteComment(req, res) {
+        var comment = req.body;
+        var songId = comment.songId;
+        songModel.deleteComment(songId, comment._id).then(
+            function (doc) {
+                res.json(doc);
+            },
+            function (err) {
+                res.status(400).send(err);
+            }
+        );
+    }
+
+    function findSongById(req, res) {
+        var songId = req.params.songId;
+        songModel.findSongById(songId).then(
+            function (doc) {
+                res.json(doc);
+            },
+            function (err) {
+                res.status(400).send(err);
+            }
+        );
+    }
+
+
 
 }

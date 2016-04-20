@@ -3,19 +3,14 @@
         .module("MusicDBApp")
         .factory("SpotifyService", SpotifyService);
 
-    function SpotifyService($http) {
+    function SpotifyService($http, $rootScope) {
         var api = {
-            searchSongByName: searchSongByName,
-            //findMovieByImdbID: findMovieByImdbID
+            searchSongByName: searchSongByName
         };
         return api;
-/*
-        function findMovieByImdbID(imdbID) {
-            return $http.get("http://www.omdbapi.com/?i="+imdbID);
-        }
-*/
+
         function searchSongByName(track) {
-            return $http.get("/api/project/spotify/" + track);
+            return $http.get("/api/project/spotify/" + track + "/" + $rootScope.currentUser._id);
         }
     }
 })();

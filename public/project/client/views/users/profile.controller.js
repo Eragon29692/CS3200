@@ -14,17 +14,17 @@
         vm.user = {};
 
         function init() {
-            var user = UserService.findUserByID().then(function (respone) {
-                vm.user = respone.data;
-                delete vm.user.password;
-                //console.log(respone.data);
-            });
-
-            //var user = $rootScope.currentUser;
-
+            render();
         }
 
         init();
+
+        function render() {
+            var user = UserService.findUserByID().then(function (respone) {
+                vm.user = respone.data;
+                delete vm.user.password;
+            });
+        }
 
         function update(user) {
             if (vm.myform.$valid) {
@@ -35,6 +35,7 @@
                     console.log(respone.data);
                     //$rootScope.currentUser = respone;
                     $location.url("/profile");
+                    render();
                 });
             }
         }

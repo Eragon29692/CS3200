@@ -35,39 +35,41 @@
 
         function addUser(user) {
             if (!(user === undefined)) {
-                if (user.songs === undefined)
-                    user.songs = "";
-                user.songs = user.songs.split(",");
-                UserService.createUser(user).then(function (respone) {
-                    console.log(respone.data);
-                    delete respone.data.password;
-                    selectUser(respone.data);
+                //if (user.songs === undefined)
+                //    user.songs = "";
+                //user.songs = user.songs.split(",");
+                UserService.addUser(user).then(function (respone) {
+                    //console.log(respone.data);
+                    if (respone.data) {
+                        delete respone.data.password;
+                        render();
+                        selectUser(respone.data);
+                    }
                 });
 
             }
-            render();
         }
 
         function updateUser(user) {
-            if (!(user === undefined)) {
+            //console.log(user);
+            if (!(user._id === undefined)) {
                 if (user.songs === undefined)
                     user.songs = "";
                 user.songs = user.songs.split(",");
                 UserService.updateUser(user).then(function (respone) {
-                    console.log(respone.data);
+                    //console.log(respone.data);
                     delete respone.data.password;
+                    render();
                     selectUser(respone.data);
                 });
-
             }
-            render();
         }
 
         function deleteUser(user) {
-            UserService.deleteUserById(user._id).then( function (respone) {
-                console.log(respone.data);
+            UserService.deleteUserById(user._id).then(function (respone) {
+                //console.log(respone.data);
+                render();
             });
-            render();
         }
 
         function selectUser(user) {

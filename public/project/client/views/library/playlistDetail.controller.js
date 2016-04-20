@@ -49,6 +49,7 @@
                 _id: song._id,
                 title: song.title,
                 artist: song.artist,
+                comment: song.comment
                 //userId: song.userId
             };
             vm.song = selectedSong;

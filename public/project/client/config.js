@@ -13,7 +13,7 @@
                 templateUrl: "views/home/home.view.html",
                 controller: "HomeController",
                 controllerAs: "model",
-                //resolve: { loggedin: checkLoggedin }
+                resolve: { loggedin: checkLoggedin }
             })
             .when("/register", {
                 templateUrl: "views/users/register.view.html",
@@ -71,7 +71,7 @@
             })
 
             .otherwise({
-                redirectTo: "/home"
+                redirectTo: "/login"
             });
     }
 

@@ -4,5 +4,5 @@
 "use strict";
 (function(){
     angular
-        .module("MusicDBApp", ["ngRoute", "ui.sortable"]);
+        .module("MusicDBApp", ["ngRoute", "ui.bootstrap", "ui.sortable"]);
 })();

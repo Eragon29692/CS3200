@@ -7,7 +7,7 @@
         .module("MusicDBApp")
         .factory("PlaylistService", PlaylistService);
 
-    function PlaylistService($http) {
+    function PlaylistService($http, $rootScope) {
 
         var api = {
             createPlaylistForUser: createPlaylistForUser,
@@ -19,11 +19,11 @@
         return api;
 
         function createPlaylistForUser(userId, playlist) {
-            return $http.post("/api/project/user/"+ userId +"/playlist", playlist);
+            return $http.post("/api/project/user/"+ $rootScope.currentUser._id +"/playlist", playlist);
         }
 
         function findAllPlaylistsForUser(userId) {
-            return $http.get("/api/project/user/" + userId + "/playlist");
+            return $http.get("/api/project/user/" + $rootScope.currentUser._id + "/playlist");
         }
 
         function findPlaylistById(playlistId) {
@@ -35,6 +35,7 @@
         }
 
         function updatePlaylistById(playlistId, newPlaylist) {
+            //console.log(playlistId);
             return $http.put("/api/project/playlist/" + playlistId, newPlaylist);
         }
     }

@@ -209,3 +209,31 @@ h1.project-page-header {
 .homepage-center-text {
     text-align: center;
 }
+
+/*playlist font in dropdown menu*/
+.dropdown-playlist-style {
+    font-size: small;
+    font: menu;
+}
+
+/*button on the comment modal page*/
+.comment-button {
+    float: right;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+
+/*button on the comment modal page*/
+.comment-label {
+    float: left;
+}
+
+.modal-oldComment {
+    background-color: white !important;
+}
+
+.modal-scroll {
+    height: 300px;
+    overflow-y: scroll;
+}

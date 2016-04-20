@@ -1,108 +1,111 @@
 var mock = require("./song.mock.json");
-module.exports = function () {
+var q = require("q");
+
+module.exports = function (mysql) {
 
     var api = {
-        //createSongForUser: createSongForUser,
-        //findAllSongsForUser: findAllSongsForUser,
         deleteSongById: deleteSongById,
         updateSongById: updateSongById,
         /////////////////////
         createSong: createSong,
-        findAllSongs: findAllSongs
+        findAllSongs: findAllSongs,
+        findSongById: findSongById
     };
     return api;
 
-/*
-    //this function is soon to be depcrecated
-    function createSongForUser(userId, song) {
-        var newSong = {
-            _id: (new Date()).getTime(),
-            title: song.title,
-            artist: song.artist,
-            userId: userId
-        };
-        mock.push(newSong);
-        return newSong;
-    }
-*/
-    /*
-     function findAllSongsForUser(userId, callback) {
-     var userSongs = [];
-     for (var f in songs) {
-     if (userId === songs[f].userId) {
-     userSongs.push(songs[f]);
-     }
-     }
-     return callback(userSongs);
-     }
-     */
     function deleteSongById(songId) {
-        console.log(songId);
-        for (var i = mock.length - 1; i >= 0; i--) {
-            if (songId == mock[i]._id) {
-                mock.splice(i, 1);
-                return mock;
+        var deferred = q.defer();
+        mysql.query('Call delete_song_by_id("' + songId + '")', function (err, rows) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(convertToFrontEnd(rows[0]));
             }
-        }
-        return null;
+        });
+        return deferred.promise;
     }
 
     //this won't be used
     function updateSongById(songId, newSong) {
-        var updateSong = {
-            _id: newSong._id,
-            title: newSong.title,
-            artist: newSong.artist
-        };
-        for (var f in mock) {
-            if (songId === mock[f]._id) {
-                mock[f] = updateSong;
-                return updateSong;
+        var deferred = q.defer();
+        newSong = convertToDatabase(newSong);
+        mysql.query('Call update_song_by_id("' + songId + '","' + newSong.title + '","'
+            + newSong.artist + '","' + newSong.album + '","' + newSong.year + '")', function (err, rows) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(convertToFrontEnd(rows[0][0]));
             }
-        }
-        return null;
+        });
+        return deferred.promise;
     }
 
     ///////////////////////////////////////////////////////////
-/*    function findAllSongsForUser(userId, callback) {
-        UserService.findUserByID(userId, function (user) {
-            //console.log(user);
-            var userSongs = [];
-            for (var songID in user.songs) {
-                for (var f in songs) {
-                    if (user.songs[songID] === songs[f]._id) {
-                        userSongs.push(songs[f]);
-                        //console.log(f);
-                    }
-                }
-            }
-            return callback(userSongs);
-        });
-    }
-*/
 
     function createSong(song) {
-        var newSong = {
-            _id: (new Date()).getTime().toString(),
-            title: song.title,
-            artist: song.artist,
-        };
-        mock.push(newSong);
-        return newSong;
+        var deferred = q.defer();
+        song = convertToDatabase(song);
+        mysql.query('Call create_song("' + song.songid + '","' + song.title + '","'
+            + song.artist + '","' + song.album + '","' + song.year + '")', function (err, rows) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(convertToFrontEnd(rows[0][0]));
+            }
+        });
+        return deferred.promise;
     }
 
     function  findAllSongs() {
-        return mock;
+        var deferred = q.defer();
+        mysql.query('Call find_all_song()', function (err, rows) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                for (var song in rows[0]) {
+                    rows[0][song] = convertToFrontEnd(rows[0][song]);
+                }
+                console.log(rows[0]);
+                deferred.resolve(rows[0]);
+            }
+        });
+        return deferred.promise;
     }
 
-/*
-    function findMovieByImdbID(imdbID) {
-        for (var m in movies) {
-            if (movies[m].imdbID === imdbID) {
-                return movies[m];
+    function findSongById(songId) {
+        var deferred = q.defer();
+        mysql.query('Call find_song_id("' + songId + '")', function (err, rows) {
+            if (err) {
+                deferred.reject(err);
+            } else {
+                deferred.resolve(convertToFrontEnd(rows[0][0]));
             }
+        });
+        return deferred.promise;
+    }
+
+    function convertToDatabase(song) {
+        var converted = {
+            songid: song._id,
+            title: song.title,
+            artist: song.artist,
+            album: song.album,
+            year: song.year
+        }
+        return converted;
+    }
+
+    function convertToFrontEnd(song) {
+        if (song) {
+            var converted = {
+                _id: song.songid,
+                title: song.title,
+                artist: song.artist,
+                album: song.album,
+                year: song.year
+            }
+            return converted;
         }
         return null;
     }
-    */
 }

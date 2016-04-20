@@ -13,6 +13,7 @@
             findUserByCredentials: login,
             findAllUsers: findAllUsers,
             createUser: register,
+            addUser: addUser,
             deleteUserById: deleteUserById,
             updateUser: updateUser,
             //////////////////////
@@ -26,8 +27,11 @@
         }
 
         function register(user) {
-            //console.log(user);
             return $http.post("/api/project/MusicDB/register", user);
+        }
+
+        function addUser(user) {
+            return $http.post("/api/project/MusicDB/addUser", user);
         }
 
         function login(credentials) {
@@ -42,7 +46,7 @@
         function deleteUserById(userId) {
             var deleteInfo = {};
             deleteInfo.userID = userId;
-            return $http.post("/api/project/MusicBD/deleteUser", deleteInfo);
+            return $http.post("/api/project/MusicBD/deleteUser/" + $rootScope.currentUser._id, deleteInfo);
         }
 
         function updateUser(user) {

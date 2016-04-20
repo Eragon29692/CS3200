@@ -17,7 +17,6 @@
 
         function register(user) {
             if (vm.myform.$valid) {
-                delete user.password2;
                 SecurityService.register(user).then(
                     function (response) {
                         if (response.data) {
@@ -32,13 +31,6 @@
                     }
                 );
             }
-            /*
-             UserService.createUser(user).then( function (respone) {
-             console.log(respone.data);
-             $rootScope.currentUser = respone.data;
-             $location.url("/profile");
-             });
-             */
         }
     }
 })();

@@ -1,11 +1,11 @@
 <div ng-if="!(currentUser === undefined)">
     <footer class="footer">
-        <div class="container text-muted">
+        <div ng-controller="FooterController" class="container text-muted">
 
             <div class="col-xs-2">
-                <span ng-click="" class="glyphicon glyphicon-heart"
-                      aria-label="favorite"></span>
-                <span ng-click="" class="glyphicon glyphicon-menu-hamburger"
+                <!--span ng-click="" class="glyphicon glyphicon-heart"
+                      aria-label="favorite"></span-->
+                <span ng-click="openComment();" class="glyphicon glyphicon-menu-hamburger"
                       aria-label="Song's Detail"></span>
             </div>
 

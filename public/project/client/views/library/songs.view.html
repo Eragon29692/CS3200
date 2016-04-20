@@ -25,9 +25,10 @@
                     <span class="glyphicon-plus dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
                           aria-haspopup="true" aria-expanded="true">
                     </span>
-                    <ul ng-class="{'hidden' : playlists.length == 0}" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <ul ng-class="{'hidden' : playlists.length == 0}"
+                        class="dropdown-menu dropdown-playlist-style" aria-labelledby="dropdownMenu1">
                         <li ng-repeat="playlist in playlists">
-                            <a  href="" ng-click="addSongToPlaylist(song._id, playlist._id);">
+                            <a href="" ng-click="addSongToPlaylist(song._id, playlist._id);">
                                 {{playlist.title}}
                             </a>
                         </li>

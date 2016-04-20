@@ -31,8 +31,12 @@
                         <img ng-src="{{song.cover}}"
                              height="100px"/>
                         <div class="after">
-                            <span ng-click="model.addSong(song)"
-                                  class=" glyphicon glyphicon-plus image-homepage-glyphicon"></span>
+                            <div ng-switch="song.inLibrary">
+                                <span ng-switch-when="false" ng-click="model.addSong(song)"
+                                      class=" glyphicon glyphicon-plus image-homepage-glyphicon"></span>
+                                <span ng-switch-when="true" ng-click="model.deleteSong(song)"
+                                      class=" glyphicon glyphicon-minus image-homepage-glyphicon"></span>
+                            </div>
                         </div>
                     </div>
                 </td>

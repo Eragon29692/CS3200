@@ -40,7 +40,7 @@
         }
 
         function updateSong(song) {
-            if (!(song === undefined))
+            if (!(song._id === undefined))
                 SongService.updateSongById(song).then(function (respone) {
                     console.log(respone.data);
                     render();
@@ -59,7 +59,8 @@
             var selectedSong = {
                 _id: song._id,
                 title: song.title,
-                artist: song.artist
+                artist: song.artist,
+                comment: song.comment
             };
             $scope.song = selectedSong;
             //$rootScope.currentSong = selectedSong;
