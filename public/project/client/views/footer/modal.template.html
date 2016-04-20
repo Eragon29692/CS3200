@@ -13,10 +13,10 @@
                     <div ng-if="comment.username === currentUser.username || currentUser.roles === 'admin'"
                          class="input-group">
                         <span ng-click="delete(comment)" class="input-group-addon btn btn-primary">Delete</span>
-                        <textarea class="form-control modal-oldComment" readonly>{{comment.content}}</textarea>
+                        <textarea class="form-control modal-oldComment" rows="4" readonly>{{comment.content}}</textarea>
                     </div>
                     <textarea ng-if="comment.username != currentUser.username && currentUser.roles != 'admin'"
-                              class="form-control modal-oldComment" readonly>{{comment.content}}</textarea>
+                              class="form-control modal-oldComment" rows="4" readonly>{{comment.content}}</textarea>
                 </div>
             </div>
         </div>

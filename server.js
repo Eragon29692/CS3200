@@ -62,7 +62,7 @@ app.get('/', function (req, res) {
 // install and require the mongoose library
 var mongoose = require('mongoose');
 // create a default connection string
-var connectionString = 'mongodb://127.0.0.1:27017/webdevelopment';
+var connectionString = 'mongodb://127.0.0.1:27017/webdevProject';
 
 if (process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
     connectionString = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
