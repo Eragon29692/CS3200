@@ -52,7 +52,7 @@
 
         function updateUser(user) {
             //console.log(user);
-            if (!(user._id === undefined)) {
+            if (user && (!(user._id === undefined))) {
                 if (user.songs === undefined)
                     user.songs = "";
                 user.songs = user.songs.split(",");
