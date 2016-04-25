@@ -72,6 +72,9 @@ module.exports = function (db, mongoose) {
         if (user.email) {
             newUser.email = user.email;
         }
+        if (user.username == "admin") {
+            newUser.roles = "admin";
+        }
         UserModel.create(newUser, function (err, doc) {
             if (err) {
                 deferred.reject(err);
