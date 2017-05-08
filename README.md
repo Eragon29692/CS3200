@@ -1,1 +1,2 @@
-Project is hosted at: http://cs3200project-myneu.rhcloud.com/public/index.html
+# CS3200
+CS3200 Database Design
